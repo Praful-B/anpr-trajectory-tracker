@@ -1,6 +1,5 @@
 # Hotlist Vehicle Tracking System — Build Todo List
 
-Derived from the architecture sketch. Organized in a rough build order: get the backend + DB solid first, then the two ways data gets in (complaint portal, scanner app), then the dashboard, then the automation rules and security hardening.
 
 ## 1. Core Backend + Database
 - [ DONE ] Finalize stack (Spring Boot)
