@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Rakshak Scanner",
+    "slug": "rakshak-scanner",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-camera",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow RAKSHAK to use your location when the app is in use to report vehicle sightings."
+        }
+      ]
+    ]
+  }
+}
