@@ -22,7 +22,7 @@ export default function TrajectoryMap({ sightings, plateNumber, onClose }: Traje
   const mapRef = useRef<L.Map | null>(null);
 
   // Calculate bounds for all sightings
-  const bounds = sightings.length > 0
+  const bounds: L.LatLngBoundsExpression = sightings.length > 0
     ? [[Math.min(...sightings.map(s => s.latitude)), Math.min(...sightings.map(s => s.longitude))],
        [Math.max(...sightings.map(s => s.latitude)), Math.max(...sightings.map(s => s.longitude))]]
     : [[0, 0], [0, 0]];
