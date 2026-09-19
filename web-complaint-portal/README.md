@@ -1,78 +1,75 @@
-# React + TypeScript + Vite
+# Citizen Complaint Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Citizen Complaint Portal is the public-facing frontend application for the RAKSHAK ANPR (Automatic Number Plate Recognition) system. It allows citizens to quickly report stolen vehicles and track the real-time status of their complaints.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Rapid Vehicle Theft Reporting**: Citizens can submit a complaint immediately upon noticing a theft. Submitting a report adds the vehicle's license plate to the active network hotlist for an initial 48-hour window.
+- **Auto-formatting Indian HSRPs**: Form inputs automatically format standard Indian license plates (e.g. `MH 12 AB 1234`).
+- **Complaint Tracker timeline**: Visual timeline UI indicating the current status of the complaint: `Submitted` $\rightarrow$ `Under Review` $\rightarrow$ `Added to Hotlist` $\rightarrow$ `FIR Verified` $\rightarrow$ `Vehicle Sighted / Recovered`.
+- **FIR Countdown Timer**: A strict 48-hour countdown timer enforces that citizens must upload an official Police FIR to verify the theft and keep the vehicle on the hotlist indefinitely.
+- **Sighting Updates**: Placeholder for the real-time feedback loop displaying active sightings logged by the edge network.
 
-## React Compiler
+## Technology Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **React 19**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **Vitest & React Testing Library**
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## Getting Started
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v18+)
+- pnpm
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Navigate to the project directory:
+   ```bash
+   cd web-complaint-portal
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Development
 
+To start the development server with Hot Module Replacement (HMR):
+```bash
+pnpm dev
+```
+The application will be accessible at `http://localhost:5173`.
+
+### Testing
+
+The portal includes comprehensive unit tests for form behaviors and complex timers (like the FIR countdown) using Vitest and React Testing Library.
+
+To run the test suite once:
+```bash
+pnpm vitest run
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+To run tests in interactive watch mode:
+```bash
+pnpm vitest
 ```
+
+### Build for Production
+
+To build the optimized static assets:
+```bash
+pnpm build
+```
+
+This will output the production-ready application in the `dist` directory. You can preview the production build locally using:
+```bash
+pnpm preview
+```
+
+## Role in the System Architecture
+
+This application represents the `CITIZEN` interaction layer in the Role-Based Access Control (RBAC) model. It focuses purely on writing complaints and viewing the citizen's own complaint history. It does not have read access to the global hotlist, audit logs, or unauthorized sightings.
